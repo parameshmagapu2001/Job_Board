@@ -1,0 +1,20 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /resumes/{userId}/{file} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    match /company-logos/{file} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    match /blog-images/{file} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    match /avatars/{userId}/{file} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}

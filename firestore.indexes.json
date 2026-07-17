@@ -1,0 +1,11 @@
+{
+  "indexes": [
+    { "collectionGroup": "jobs", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "isActive", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" }] },
+    { "collectionGroup": "jobs", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "isFeatured", "order": "ASCENDING" }, { "fieldPath": "isActive", "order": "ASCENDING" }] },
+    { "collectionGroup": "jobs", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "category", "order": "ASCENDING" }, { "fieldPath": "isActive", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" }] },
+    { "collectionGroup": "jobs", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "jobType", "order": "ASCENDING" }, { "fieldPath": "isActive", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" }] },
+    { "collectionGroup": "applications", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "userId", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" }] },
+    { "collectionGroup": "blogs", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "published", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" }] }
+  ],
+  "fieldOverrides": []
+}
