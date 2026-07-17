@@ -92,6 +92,18 @@ export default function HeroSection() {
               </button>
             ))}
           </div>
+
+          {/* Trusted By Industry Leaders */}
+          <div className="mt-20 border-t border-border/20 pt-10 animate-fade-up hidden sm:block" style={{ animationDelay: '0.5s' }}>
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-6">Trusted by Industry Leaders</p>
+            <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-40 hover:opacity-75 transition-opacity duration-300">
+              <span className="font-display font-bold text-sm sm:text-base tracking-widest text-muted-foreground">GOOGLE</span>
+              <span className="font-display font-bold text-sm sm:text-base tracking-widest text-muted-foreground">MICROSOFT</span>
+              <span className="font-display font-bold text-sm sm:text-base tracking-widest text-muted-foreground">AMAZON</span>
+              <span className="font-display font-bold text-sm sm:text-base tracking-widest text-muted-foreground">FLIPKART</span>
+              <span className="font-display font-bold text-sm sm:text-base tracking-widest text-muted-foreground">SWIGGY</span>
+            </div>
+          </div>
         </div>
 
         {/* Floating Job Cards */}
