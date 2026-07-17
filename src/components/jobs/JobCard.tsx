@@ -21,8 +21,16 @@ const JOB_TYPE_COLORS: Record<string, string> = {
   freelance: 'text-cyan-400 bg-cyan-400/10 border-cyan-400/20',
 }
 
+const parseDate = (dateVal: any): Date => {
+  if (!dateVal) return new Date()
+  if (typeof dateVal.toDate === 'function') return dateVal.toDate()
+  if (typeof dateVal === 'string' || typeof dateVal === 'number') return new Date(dateVal)
+  if (dateVal.seconds) return new Date(dateVal.seconds * 1000)
+  return new Date(dateVal)
+}
+
 export default function JobCard({ job, onSave, saved, compact }: JobCardProps) {
-  const postedAt = job.createdAt?.toDate ? formatDistanceToNow(job.createdAt.toDate(), { addSuffix: true }) : 'Recently'
+  const postedAt = formatDistanceToNow(parseDate(job.createdAt), { addSuffix: true })
   const typeColor = JOB_TYPE_COLORS[job.jobType] || 'text-gray-400 bg-gray-400/10 border-gray-400/20'
 
   return (

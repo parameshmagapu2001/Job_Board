@@ -12,7 +12,7 @@ const mockTimestamp = (daysAgo: number = 0) => {
   } as any
 }
 
-export const MOCK_JOBS: Job[] = [
+const RAW_MOCK_JOBS: Job[] = [
   // General Demo Jobs (from JobsListing.tsx)
   {
     id: '1',
@@ -705,6 +705,14 @@ export const MOCK_JOBS: Job[] = [
     updatedAt: mockTimestamp(7)
   }
 ]
+
+const serializeJob = (job: any) => ({
+  ...job,
+  createdAt: job.createdAt?.toDate ? { seconds: job.createdAt.seconds, nanoseconds: job.createdAt.nanoseconds } : job.createdAt,
+  updatedAt: job.updatedAt?.toDate ? { seconds: job.updatedAt.seconds, nanoseconds: job.updatedAt.nanoseconds } : job.updatedAt,
+})
+
+export const MOCK_JOBS: Job[] = RAW_MOCK_JOBS.map(serializeJob)
 
 // API Helpers for components
 export const getAllMockJobs = () => MOCK_JOBS

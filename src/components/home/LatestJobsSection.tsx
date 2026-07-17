@@ -5,9 +5,17 @@ import { Clock, MapPin, ArrowRight } from 'lucide-react'
 import { getAllMockJobs } from '@/data/jobsData'
 import { formatDistanceToNow } from 'date-fns'
 
+const parseDate = (dateVal: any): Date => {
+  if (!dateVal) return new Date()
+  if (typeof dateVal.toDate === 'function') return dateVal.toDate()
+  if (typeof dateVal === 'string' || typeof dateVal === 'number') return new Date(dateVal)
+  if (dateVal.seconds) return new Date(dateVal.seconds * 1000)
+  return new Date(dateVal)
+}
+
 export default function LatestJobsSection() {
   const latestJobs = getAllMockJobs()
-    .sort((a, b) => b.createdAt.toDate().getTime() - a.createdAt.toDate().getTime())
+    .sort((a, b) => parseDate(b.createdAt).getTime() - parseDate(a.createdAt).getTime())
     .slice(0, 8)
 
   return (
@@ -27,7 +35,7 @@ export default function LatestJobsSection() {
             const salaryText = job.salaryMin && job.salaryMax 
               ? `₹${(job.salaryMin / 100000).toFixed(0)}–${(job.salaryMax / 100000).toFixed(0)} LPA` 
               : 'Competitive'
-            const timeAgo = job.createdAt?.toDate ? formatDistanceToNow(job.createdAt.toDate(), { addSuffix: true }) : 'Recently'
+            const timeAgo = formatDistanceToNow(parseDate(job.createdAt), { addSuffix: true })
 
             return (
               <Link key={job.id} href={`/jobs/${job.slug || job.id}`} className="glass-card rounded-xl p-4 flex items-center gap-4 hover:neon-border transition-all group">
