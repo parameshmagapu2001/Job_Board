@@ -40,7 +40,7 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         {[
           { label: 'Job Seekers', count: users.filter(u => u.role === 'user').length, icon: User, color: 'text-cyan-400 bg-cyan-500/10' },
           { label: 'Employers', count: users.filter(u => u.role === 'employer').length, icon: Shield, color: 'text-purple-400 bg-purple-500/10' },
@@ -74,9 +74,9 @@ export default function AdminUsersPage() {
         </div>
       </div>
 
-      {/* Table */}
       <div className="glass-card rounded-2xl overflow-hidden">
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
           <thead className="border-b border-border/50">
             <tr className="text-xs text-muted-foreground">
               <th className="text-left px-6 py-4 font-medium">User</th>
@@ -119,6 +119,7 @@ export default function AdminUsersPage() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </AdminLayout>
   )

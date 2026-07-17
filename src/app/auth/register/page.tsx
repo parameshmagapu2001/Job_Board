@@ -61,7 +61,7 @@ export default function RegisterPage() {
           <p className="text-sm text-muted-foreground">Join thousands of professionals</p>
         </div>
 
-        <div className="glass-card rounded-2xl p-8">
+        <div className="glass-card rounded-2xl p-6 sm:p-8">
           {/* Role Toggle */}
           <div className="flex rounded-xl bg-muted p-1 mb-6">
             {(['user', 'employer'] as const).map(r => (
@@ -83,9 +83,10 @@ export default function RegisterPage() {
             Continue with Google
           </button>
 
-          <div className="relative mb-6">
-            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-border" /></div>
-            <div className="relative flex justify-center text-xs"><span className="bg-card px-3 text-muted-foreground">or with email</span></div>
+          <div className="flex items-center gap-3 my-6">
+            <div className="flex-1 border-t border-border/50" />
+            <span className="text-xs text-muted-foreground uppercase tracking-wider">or with email</span>
+            <div className="flex-1 border-t border-border/50" />
           </div>
 
           <form onSubmit={handleRegister} className="space-y-4">

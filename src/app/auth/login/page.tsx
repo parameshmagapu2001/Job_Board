@@ -54,7 +54,7 @@ export default function LoginPage() {
           <p className="text-sm text-muted-foreground">Sign in to your account</p>
         </div>
 
-        <div className="glass-card rounded-2xl p-8">
+        <div className="glass-card rounded-2xl p-6 sm:p-8">
           {/* Google */}
           <button onClick={handleGoogle} disabled={loading}
             className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl border border-border hover:bg-white/5 transition-all text-sm font-medium mb-6 disabled:opacity-50">
@@ -67,9 +67,10 @@ export default function LoginPage() {
             Continue with Google
           </button>
 
-          <div className="relative mb-6">
-            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-border" /></div>
-            <div className="relative flex justify-center text-xs"><span className="bg-card px-3 text-muted-foreground">or continue with email</span></div>
+          <div className="flex items-center gap-3 my-6">
+            <div className="flex-1 border-t border-border/50" />
+            <span className="text-xs text-muted-foreground uppercase tracking-wider">or continue with email</span>
+            <div className="flex-1 border-t border-border/50" />
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">

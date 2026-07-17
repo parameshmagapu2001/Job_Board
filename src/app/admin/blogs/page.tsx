@@ -33,7 +33,8 @@ export default function AdminBlogsPage() {
       </div>
 
       <div className="glass-card rounded-2xl overflow-hidden">
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
           <thead className="border-b border-border/50">
             <tr className="text-xs text-muted-foreground">
               <th className="text-left px-6 py-4 font-medium">Post</th>
@@ -72,6 +73,7 @@ export default function AdminBlogsPage() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </AdminLayout>
   )

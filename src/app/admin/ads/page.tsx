@@ -44,7 +44,7 @@ export default function AdminAdsPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         {[
           { label: 'Total Impressions', value: totalImpressions.toLocaleString(), color: 'text-blue-400 bg-blue-500/10' },
           { label: 'Total Clicks', value: totalClicks.toLocaleString(), color: 'text-cyan-400 bg-cyan-500/10' },
@@ -93,7 +93,8 @@ export default function AdminAdsPage() {
       )}
 
       <div className="glass-card rounded-2xl overflow-hidden">
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
           <thead className="border-b border-border/50">
             <tr className="text-xs text-muted-foreground">
               <th className="text-left px-6 py-4 font-medium">Ad</th>
@@ -132,6 +133,7 @@ export default function AdminAdsPage() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </AdminLayout>
   )
