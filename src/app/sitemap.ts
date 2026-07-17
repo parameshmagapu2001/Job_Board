@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
 
-  const base = 'https://jobboard.in'
+  const base = 'https://job-board-india.vercel.app'
 
   const staticRoutes = [
     '',

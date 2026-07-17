@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://jobboard.in',
+    url: 'https://job-board-india.vercel.app',
     siteName: 'JobBoard',
 
     title: 'JobBoard – AI Powered Job & Talent Platform',
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     follow: true
   },
 
-  metadataBase: new URL('https://jobboard.in'),
+  metadataBase: new URL('https://job-board-india.vercel.app'),
 }
 
 export default function RootLayout({

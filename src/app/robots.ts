@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       disallow: ['/admin/', '/api/', '/auth/'],
     },
 
-    sitemap: 'https://jobboard.in/sitemap.xml',
+    sitemap: 'https://job-board-india.vercel.app/sitemap.xml',
   }
 }
