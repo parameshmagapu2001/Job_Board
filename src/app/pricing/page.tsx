@@ -1,7 +1,11 @@
-'use client'
-// src/app/pricing/page.tsx
+import { Metadata } from 'next'
 import UserLayout from '@/components/layout/UserLayout'
 import { Check, ShieldAlert } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Pricing Plans | JobBoard',
+  description: 'Choose a plan that fits your startup or corporate hiring needs. Get your tech job postings in front of thousands of developers.',
+}
 
 const PLANS = [
   { name: 'Standard', price: 'Free', period: 'forever', desc: 'Best for standard job posting needs for single hire requirements.', features: ['1 active job posting', '30 days duration', 'Basic applicant management', 'Email alerts', 'Standard search listing'], popular: false },

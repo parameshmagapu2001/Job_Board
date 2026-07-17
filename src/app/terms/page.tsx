@@ -1,6 +1,10 @@
-'use client'
-// src/app/terms/page.tsx
+import { Metadata } from 'next'
 import UserLayout from '@/components/layout/UserLayout'
+
+export const metadata: Metadata = {
+  title: 'Terms of Service | JobBoard',
+  description: 'Review the terms and conditions for candidates and employers using the JobBoard hiring platform.',
+}
 
 export default function TermsPage() {
   return (

@@ -1,5 +1,6 @@
 'use client'
 // src/app/admin/analytics/page.tsx
+import { useState, useEffect } from 'react'
 import AdminLayout from '@/components/admin/AdminLayout'
 import { TrendingUp, Users, Eye, Briefcase, MapPin, Tag } from 'lucide-react'
 import { AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
@@ -21,6 +22,11 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 }
 
 export default function AdminAnalyticsPage() {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   return (
     <AdminLayout>
       <div className="mb-8">
@@ -52,55 +58,71 @@ export default function AdminAnalyticsPage() {
       {/* Growth Chart */}
       <div className="glass-card rounded-2xl p-6 mb-6">
         <h2 className="font-semibold mb-6">Platform Growth (6 Months)</h2>
-        <ResponsiveContainer width="100%" height={250}>
-          <AreaChart data={MONTHLY_DATA}>
-            <defs>
-              {[['users','#818cf8'],['jobs','#06b6d4'],['applications','#34d399']].map(([key, color]) => (
-                <linearGradient key={key} id={key} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={color} stopOpacity={0.3}/>
-                  <stop offset="95%" stopColor={color} stopOpacity={0}/>
-                </linearGradient>
-              ))}
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-            <XAxis dataKey="month" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fill: '#64748b', fontSize: 11 }} axisLine={false} tickLine={false} />
-            <Tooltip content={<CustomTooltip />} />
-            <Legend />
-            <Area type="monotone" dataKey="users" stroke="#818cf8" strokeWidth={2} fill="url(#users)" name="Users" />
-            <Area type="monotone" dataKey="jobs" stroke="#06b6d4" strokeWidth={2} fill="url(#jobs)" name="Jobs" />
-            <Area type="monotone" dataKey="applications" stroke="#34d399" strokeWidth={2} fill="url(#applications)" name="Applications" />
-          </AreaChart>
-        </ResponsiveContainer>
+        {mounted ? (
+          <ResponsiveContainer width="100%" height={250}>
+            <AreaChart data={MONTHLY_DATA}>
+              <defs>
+                {[
+                  ['users', '#818cf8'],
+                  ['jobs', '#06b6d4'],
+                  ['applications', '#34d399'],
+                ].map(([key, color]) => (
+                  <linearGradient key={key} id={key} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={color} stopOpacity={0.3} />
+                    <stop offset="95%" stopColor={color} stopOpacity={0} />
+                  </linearGradient>
+                ))}
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+              <XAxis dataKey="month" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fill: '#64748b', fontSize: 11 }} axisLine={false} tickLine={false} />
+              <Tooltip content={<CustomTooltip />} />
+              <Legend />
+              <Area type="monotone" dataKey="users" stroke="#818cf8" strokeWidth={2} fill="url(#users)" name="Users" />
+              <Area type="monotone" dataKey="jobs" stroke="#06b6d4" strokeWidth={2} fill="url(#jobs)" name="Jobs" />
+              <Area type="monotone" dataKey="applications" stroke="#34d399" strokeWidth={2} fill="url(#applications)" name="Applications" />
+            </AreaChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="h-[250px] bg-white/5 animate-pulse rounded-xl" />
+        )}
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Top Categories */}
         <div className="glass-card rounded-2xl p-6">
           <h2 className="font-semibold mb-6 flex items-center gap-2"><Tag className="w-4 h-4 text-cyan-400" /> Top Categories</h2>
-          <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={TOP_CATEGORIES} layout="vertical">
-              <XAxis type="number" tick={{ fill: '#64748b', fontSize: 10 }} axisLine={false} tickLine={false} />
-              <YAxis type="category" dataKey="name" tick={{ fill: '#94a3b8', fontSize: 11 }} axisLine={false} tickLine={false} width={100} />
-              <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="jobs" fill="#06b6d4" radius={[0, 4, 4, 0]} name="Jobs" />
-            </BarChart>
-          </ResponsiveContainer>
+          {mounted ? (
+            <ResponsiveContainer width="100%" height={200}>
+              <BarChart data={TOP_CATEGORIES} layout="vertical">
+                <XAxis type="number" tick={{ fill: '#64748b', fontSize: 10 }} axisLine={false} tickLine={false} />
+                <YAxis type="category" dataKey="name" tick={{ fill: '#94a3b8', fontSize: 11 }} axisLine={false} tickLine={false} width={100} />
+                <Tooltip content={<CustomTooltip />} />
+                <Bar dataKey="jobs" fill="#06b6d4" radius={[0, 4, 4, 0]} name="Jobs" />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-[200px] bg-white/5 animate-pulse rounded-xl" />
+          )}
         </div>
 
         {/* City Distribution */}
         <div className="glass-card rounded-2xl p-6">
           <h2 className="font-semibold mb-6 flex items-center gap-2"><MapPin className="w-4 h-4 text-cyan-400" /> Jobs by City</h2>
           <div className="flex items-center justify-between">
-            <ResponsiveContainer width="50%" height={180}>
-              <PieChart>
-                <Pie data={TOP_CITIES} cx="50%" cy="50%" innerRadius={50} outerRadius={80} dataKey="value" stroke="none">
-                  {TOP_CITIES.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
-                </Pie>
-                <Tooltip formatter={(v: any) => `${v}%`} />
-              </PieChart>
-            </ResponsiveContainer>
-            <div className="space-y-2 flex-1">
+            {mounted ? (
+              <ResponsiveContainer width="50%" height={180}>
+                <PieChart>
+                  <Pie data={TOP_CITIES} cx="50%" cy="50%" innerRadius={50} outerRadius={80} dataKey="value" stroke="none">
+                    {TOP_CITIES.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                  </Pie>
+                  <Tooltip formatter={(v: any) => `${v}%`} />
+                </PieChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="w-[50%] h-[180px] bg-white/5 animate-pulse rounded-full" />
+            )}
+            <div className="space-y-2 flex-1 pl-4">
               {TOP_CITIES.map((city, i) => (
                 <div key={city.name} className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2">

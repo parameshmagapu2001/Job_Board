@@ -1,11 +1,15 @@
-'use client'
 // src/app/remote-jobs/page.tsx
+import { Metadata } from 'next'
 import UserLayout from '@/components/layout/UserLayout'
 import { Wifi, Globe, Clock, DollarSign } from 'lucide-react'
-import JobCard from '@/components/jobs/JobCard'
-import { useState } from 'react'
+import JobsGrid from '@/components/jobs/JobsGrid'
 import { Job } from '@/types'
 import { getRemoteMockJobs } from '@/data/jobsData'
+
+export const metadata: Metadata = {
+  title: 'Remote Jobs & Work From Anywhere | JobBoard',
+  description: 'Search premium remote job openings. Apply for software engineering, design, and product jobs to work from home.',
+}
 
 const REMOTE_JOBS = getRemoteMockJobs() as Partial<Job>[]
 
@@ -17,8 +21,6 @@ const PERKS = [
 ]
 
 export default function RemoteJobsPage() {
-  const [saved, setSaved] = useState<Set<string>>(new Set())
-
   return (
     <UserLayout>
       <section className="relative py-20 overflow-hidden grid-pattern">
@@ -39,6 +41,7 @@ export default function RemoteJobsPage() {
           </div>
         </div>
       </section>
+
       <section className="py-12 border-y border-border/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
@@ -52,14 +55,11 @@ export default function RemoteJobsPage() {
           </div>
         </div>
       </section>
+
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <h2 className="font-display text-2xl font-bold mb-8">Latest Remote Jobs</h2>
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {REMOTE_JOBS.map(job => (
-              <JobCard key={job.id} job={job as Job} saved={saved.has(job.id!)} onSave={id => setSaved(p => { const n = new Set(p); n.has(id) ? n.delete(id) : n.add(id); return n })} />
-            ))}
-          </div>
+          <JobsGrid jobs={REMOTE_JOBS} />
         </div>
       </section>
     </UserLayout>

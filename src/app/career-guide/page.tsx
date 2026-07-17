@@ -1,7 +1,11 @@
-'use client'
-// src/app/career-guide/page.tsx
+import { Metadata } from 'next'
 import UserLayout from '@/components/layout/UserLayout'
 import { BookOpen, Award, Compass, MessageSquare } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Career Guide & Tech Advice | JobBoard',
+  description: 'Access curated advice, interview checklists, portfolio tips, and salary negotiation guides from tech hiring experts.',
+}
 
 const GUIDES = [
   { icon: Compass, title: 'Navigating Tech Careers in 2026', desc: 'Understanding remote setups, AI disruption, and choosing the right track (frontend vs backend vs full-stack).' },

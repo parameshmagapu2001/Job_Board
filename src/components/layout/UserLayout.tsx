@@ -29,16 +29,35 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
   const { user, isAdmin } = useAuth()
   const pathname = usePathname()
 
+  const [visible, setVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll)
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      setScrolled(currentScrollY > 20)
+
+      if (mobileOpen) {
+        setVisible(true)
+        return
+      }
+
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        setVisible(false) // scroll down
+      } else {
+        setVisible(true) // scroll up
+      }
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [lastScrollY, mobileOpen])
 
   return (
     <div className="min-h-screen flex flex-col">
       {/* ── Navbar ── */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass border-b border-border/50 py-3' : 'py-5'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass border-b border-border/50 py-3' : 'py-5'} ${visible ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
          <Link href="/" className="flex items-center gap-3 group">
@@ -139,7 +158,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
               </Link>
             )}
             {user ? (
-              <div className="flex items-center gap-2">
+              <div className="hidden md:flex items-center gap-2">
                 <button className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center hover:bg-muted/80 transition-all relative">
                   <Bell className="w-4 h-4" />
                   <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-cyan-400 rounded-full" />
@@ -161,7 +180,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                 </div>
               </div>
             ) : (
-              <div className="flex items-center gap-2">
+              <div className="hidden md:flex items-center gap-2">
                 <Link href="/auth/login" className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-all">Sign In</Link>
                 <Link href="/auth/register" className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-cyan-500 to-indigo-500 text-white rounded-xl hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
                   Get Started

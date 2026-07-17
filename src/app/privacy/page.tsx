@@ -1,6 +1,10 @@
-'use client'
-// src/app/privacy/page.tsx
+import { Metadata } from 'next'
 import UserLayout from '@/components/layout/UserLayout'
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy | JobBoard',
+  description: 'Understand how JobBoard collects, protects, and uses personal candidate and employer information securely.',
+}
 
 export default function PrivacyPage() {
   return (

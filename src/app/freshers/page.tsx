@@ -1,12 +1,16 @@
-'use client'
 // src/app/freshers/page.tsx
+import { Metadata } from 'next'
 import UserLayout from '@/components/layout/UserLayout'
 import { GraduationCap, Star, ArrowRight, BookOpen } from 'lucide-react'
-import JobCard from '@/components/jobs/JobCard'
-import { useState } from 'react'
+import JobsGrid from '@/components/jobs/JobsGrid'
 import Link from 'next/link'
 import { Job } from '@/types'
 import { getFresherMockJobs } from '@/data/jobsData'
+
+export const metadata: Metadata = {
+  title: 'Fresher Jobs & Entry Level Openings | JobBoard',
+  description: 'Start your career. Search and apply for software developer, analyst, and support jobs welcoming 0-1 years of experience.',
+}
 
 const FRESHER_JOBS = getFresherMockJobs() as Partial<Job>[]
 
@@ -18,7 +22,6 @@ const TIPS = [
 ]
 
 export default function FreshersPage() {
-  const [saved, setSaved] = useState<Set<string>>(new Set())
   return (
     <UserLayout>
       <section className="relative py-20 overflow-hidden grid-pattern">
@@ -45,11 +48,7 @@ export default function FreshersPage() {
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
               <h2 className="font-display text-2xl font-bold mb-6">Latest Fresher Jobs</h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                {FRESHER_JOBS.map(job => (
-                  <JobCard key={job.id} job={job as Job} saved={saved.has(job.id!)} onSave={id => setSaved(p => { const n = new Set(p); n.has(id) ? n.delete(id) : n.add(id); return n })} />
-                ))}
-              </div>
+              <JobsGrid jobs={FRESHER_JOBS} />
               <div className="text-center mt-8">
                 <Link href="/jobs?experienceLevel=fresher" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-indigo-500 text-white font-semibold rounded-xl hover:opacity-90 transition-all">
                   View All Fresher Jobs <ArrowRight className="w-4 h-4" />

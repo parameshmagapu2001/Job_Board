@@ -1,7 +1,11 @@
-'use client'
-// src/app/about/page.tsx
+import { Metadata } from 'next'
 import UserLayout from '@/components/layout/UserLayout'
 import { Award, ShieldCheck, Users, Zap } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'About Us | JobBoard',
+  description: 'Learn about JobBoard, the premium hiring platform designed to bridge the gap between talented developers, startups, and top tech companies.',
+}
 
 const VALUES = [
   { icon: Users, title: 'Community First', desc: 'We build relationships between top talent and innovative startups, helping developers elevate their careers.' },

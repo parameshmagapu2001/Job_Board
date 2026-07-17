@@ -1,11 +1,15 @@
-'use client'
 // src/app/ai-jobs/page.tsx
+import { Metadata } from 'next'
 import UserLayout from '@/components/layout/UserLayout'
 import { Brain, Cpu, Database, Sparkles } from 'lucide-react'
-import JobCard from '@/components/jobs/JobCard'
-import { useState } from 'react'
+import JobsGrid from '@/components/jobs/JobsGrid'
 import { Job } from '@/types'
 import { getAiMockJobs } from '@/data/jobsData'
+
+export const metadata: Metadata = {
+  title: 'AI & Machine Learning Jobs | JobBoard',
+  description: 'Explore active artificial intelligence, deep learning, NLP, and machine learning engineer jobs at premium tech companies.',
+}
 
 const AI_JOBS = getAiMockJobs() as Partial<Job>[]
 
@@ -17,8 +21,6 @@ const STATS = [
 ]
 
 export default function AiJobsPage() {
-  const [saved, setSaved] = useState<Set<string>>(new Set())
-
   return (
     <UserLayout>
       <section className="relative py-20 overflow-hidden grid-pattern">
@@ -31,6 +33,7 @@ export default function AiJobsPage() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Step into the future. Discover AI Engineer, Data Scientist, NLP Specialist, and Machine Learning jobs at the forefront of technology.</p>
         </div>
       </section>
+
       <section className="py-12 border-y border-border/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
@@ -44,14 +47,11 @@ export default function AiJobsPage() {
           </div>
         </div>
       </section>
+
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <h2 className="font-display text-2xl font-bold mb-8">Latest AI & Machine Learning Jobs</h2>
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {AI_JOBS.map(job => (
-              <JobCard key={job.id} job={job as Job} saved={saved.has(job.id!)} onSave={id => setSaved(p => { const n = new Set(p); n.has(id) ? n.delete(id) : n.add(id); return n })} />
-            ))}
-          </div>
+          <JobsGrid jobs={AI_JOBS} />
         </div>
       </section>
     </UserLayout>

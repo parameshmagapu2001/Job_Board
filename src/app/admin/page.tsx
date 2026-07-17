@@ -23,6 +23,11 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 }
 
 export default function AdminDashboard() {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   return (
     <AdminLayout>
       <div className="mb-8">
@@ -59,26 +64,30 @@ export default function AdminDashboard() {
             <h2 className="font-semibold">Traffic & Applications</h2>
             <span className="text-xs text-muted-foreground">Last 7 days</span>
           </div>
-          <ResponsiveContainer width="100%" height={220}>
-            <AreaChart data={TRAFFIC_DATA}>
-              <defs>
-                <linearGradient id="views" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.3}/>
-                  <stop offset="95%" stopColor="#06b6d4" stopOpacity={0}/>
-                </linearGradient>
-                <linearGradient id="apps" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#818cf8" stopOpacity={0.3}/>
-                  <stop offset="95%" stopColor="#818cf8" stopOpacity={0}/>
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-              <XAxis dataKey="day" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: '#64748b', fontSize: 11 }} axisLine={false} tickLine={false} />
-              <Tooltip content={<CustomTooltip />} />
-              <Area type="monotone" dataKey="views" stroke="#06b6d4" strokeWidth={2} fill="url(#views)" name="Views" />
-              <Area type="monotone" dataKey="applications" stroke="#818cf8" strokeWidth={2} fill="url(#apps)" name="Applications" />
-            </AreaChart>
-          </ResponsiveContainer>
+          {mounted ? (
+            <ResponsiveContainer width="100%" height={220}>
+              <AreaChart data={TRAFFIC_DATA}>
+                <defs>
+                  <linearGradient id="views" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#06b6d4" stopOpacity={0}/>
+                  </linearGradient>
+                  <linearGradient id="apps" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#818cf8" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#818cf8" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                <XAxis dataKey="day" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fill: '#64748b', fontSize: 11 }} axisLine={false} tickLine={false} />
+                <Tooltip content={<CustomTooltip />} />
+                <Area type="monotone" dataKey="views" stroke="#06b6d4" strokeWidth={2} fill="url(#views)" name="Views" />
+                <Area type="monotone" dataKey="applications" stroke="#818cf8" strokeWidth={2} fill="url(#apps)" name="Applications" />
+              </AreaChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-[220px] bg-white/5 animate-pulse rounded-2xl" />
+          )}
         </div>
 
         <div className="glass-card rounded-2xl p-6">
